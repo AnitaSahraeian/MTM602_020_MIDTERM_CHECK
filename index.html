@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Doomsday Button</title>
+    <!-- Load Tailwind CSS for utility classes and responsive design -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Set up Inter font and dark theme */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #1a1a1a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            overflow: hidden; /* Prevent body scroll from shaking effects */
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            padding: 2rem;
+        }
+
+        /* --- KEYFRAME ANIMATIONS --- */
+
+        /* 1. Initial Warning Animation: Subtle Pulse */
+        @keyframes doomsday-pulse {
+            0%, 100% { 
+                box-shadow: 
+                    0 0 15px rgba(255, 0, 0, 0.9), 
+                    0 0 25px rgba(255, 0, 0, 0.6), 
+                    0 0 50px rgba(255, 0, 0, 0.3);
+            }
+            50% { 
+                box-shadow: 
+                    0 0 5px rgba(255, 0, 0, 1), 
+                    0 0 10px rgba(255, 0, 0, 0.8), 
+                    0 0 20px rgba(255, 0, 0, 0.5);
+            }
+        }
+
+        /* 2. Hover Warning Animation: Violent Shake and Color Shift (Animating transform and background-color) */
+        @keyframes doomsday-shake {
+            0% { transform: translate(1px, 1px) rotate(0deg); background-color: #ff0000; }
+            25% { transform: translate(-1px, -2px) rotate(-1deg); background-color: #ff3300; }
+            50% { transform: translate(-3px, 0px) rotate(1deg); background-color: #ff0000; }
+            75% { transform: translate(1px, 2px) rotate(-1deg); background-color: #ff3300; }
+            100% { transform: translate(1px, -1px) rotate(0deg); background-color: #ff0000; }
+        }
+
+        /* 3. Active/Long-Press Detonation (Extra Challenge) */
+        @keyframes doomsday-detonate {
+            /* Warning Phase (0s to 3s) */
+            0% { 
+                transform: scale(1) translateY(0); 
+                background: radial-gradient(circle at 70% 30%, #ff6666, #ff0000); 
+            }
+            75% { 
+                transform: scale(0.95) translateY(5px); /* Button depression */
+                background: radial-gradient(circle at 50% 50%, #ff0000, #aa0000); 
+            }
+            /* Detonation Phase (3s to 4s) */
+            100% { 
+                transform: scale(100) translate(0, 0); /* Button disappears/explodes */
+                background: black; 
+                opacity: 0; 
+            }
+        }
+
+        /* 4. Explosion Effect on Active (using ::after) */
+        @keyframes detonation-wave {
+            0% { 
+                transform: scale(1); 
+                opacity: 1; 
+                background-color: rgba(255, 0, 0, 0.8);
+            }
+            75% { 
+                transform: scale(1); 
+                opacity: 1; 
+                background-color: rgba(255, 165, 0, 0.8); /* Orange warning */
+            }
+            100% { 
+                transform: scale(30); /* Massive expansion */
+                opacity: 0; 
+                background-color: rgba(0, 0, 0, 0.9); /* Blackout */
+            }
+        }
+
+        /* --- BUTTON STYLING --- */
+
+        .doomsday {
+            /* Base Button Styling */
+            position: relative;
+            width: 200px;
+            height: 200px;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            outline: none;
+            
+            /* Initial Look & Animation */
+            background: radial-gradient(circle at 70% 30%, #ff6666, #ff0000);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+            transition: all 0.1s ease-out;
+            
+            /* 1. Initial Warning Animation */
+            animation: doomsday-pulse 2s infinite alternate;
+            z-index: 10;
+        }
+
+        /* The metallic casing (::before) */
+        .doomsday::before {
+            content: "DO NOT PRESS";
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            right: -20px;
+            bottom: -20px;
+            border-radius: 50%;
+            background-color: #444;
+            border: 5px solid #666;
+            box-shadow: 
+                inset 0 0 10px rgba(0, 0, 0, 0.5),
+                0 0 15px rgba(0, 0, 0, 0.7);
+            z-index: 5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #ddd;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-shadow: 0 0 5px black;
+            transition: all 0.4s;
+            text-align: center;
+            line-height: 1.2;
+            padding: 1rem;
+        }
+
+        /* The core explosion warning (::after) - Used for the dramatic detonation */
+        .doomsday::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            z-index: 1;
+        }
+
+        /* --- STATE ANIMATIONS --- */
+
+        /* 2. Hover Warning Animation */
+        .doomsday:hover {
+            /* Stop the pulse and start the shake */
+            animation: doomsday-shake 0.2s infinite; 
+            box-shadow: 0 15px 30px rgba(255, 0, 0, 0.8);
+        }
+
+        /* Change the metallic casing on hover */
+        .doomsday:hover::before {
+            content: "ARMING SEQUENCE INITIALIZED";
+            color: yellow;
+            border-color: #999;
+        }
+
+        /* 3. Active/Press Warning & 4. Detonation (Long Press) */
+        .doomsday:active {
+            /* The animation is set to 4s to simulate the "long press" challenge */
+            animation: doomsday-detonate 4s forwards;
+            cursor: not-allowed;
+            z-index: 20; /* Bring button to front during press */
+            /* Depress the button immediately */
+            transform: scale(0.95) translateY(5px); 
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Active Casing (::before) */
+        .doomsday:active::before {
+            content: "LAUNCH SEQUENCE CONFIRMED";
+            color: #00ff00; /* Green confirmation light */
+            border-color: #000;
+            background-color: #000;
+        }
+
+        /* Active Explosion Wave (::after) - Triggers the dramatic explosion simulation */
+        .doomsday:active::after {
+            /* Start the explosion wave when pressed and let it run with the button detonation */
+            animation: detonation-wave 4s forwards; 
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .instructions-panel {
+            max-width: 400px;
+            padding: 1.5rem;
+            background-color: #333;
+            border-radius: 0.5rem;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            color: #ddd;
+        }
+        .instructions-panel h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #ff0000;
+            border-bottom: 2px solid #ff0000;
+            padding-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- The Doomsday Button Element -->
+        <button class="doomsday"></button>
+    </div>
+
+    <div class="instructions-panel absolute bottom-5 right-5 hidden md:block">
+        <h2 class="text-xl font-bold">Doomsday Device Status</h2>
+        <p class="text-sm">
+            <span class="font-bold text-red-400">Normal:</span> Subtle red pulse (Initial Warning).
+        </p>
+        <p class="text-sm mt-2">
+            <span class="font-bold text-red-300">Hover:</span> Rapid shaking and color shift (Violent Warning).
+        </p>
+        <p class="text-sm mt-2">
+            <span class="font-bold text-red-200">Active (Press & Hold):</span> Button sinks, and a 4-second detonation sequence begins. **Hold for the full effect!** (Device Goes Off Challenge).
+        </p>
+    </div>
+</body>
+</html>
