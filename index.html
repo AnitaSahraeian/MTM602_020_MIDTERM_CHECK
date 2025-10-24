@@ -34,15 +34,15 @@
         @keyframes doomsday-pulse {
             0%, 100% { 
                 box-shadow: 
-                    0 0 15px rgba(255, 0, 0, 0.9), 
-                    0 0 25px rgba(255, 0, 0, 0.6), 
-                    0 0 50px rgba(255, 0, 0, 0.3);
+                    0 0 15px rgba(255, 211, 13, 0.9), 
+                    0 0 25px rgba(227, 10, 90, 0.6), 
+                    0 0 50px rgba(52, 246, 22, 0.3);
             }
             50% { 
                 box-shadow: 
-                    0 0 5px rgba(255, 0, 0, 1), 
-                    0 0 10px rgba(255, 0, 0, 0.8), 
-                    0 0 20px rgba(255, 0, 0, 0.5);
+                    0 0 5px rgb(36, 3, 255), 
+                    0 0 10px rgba(88, 202, 162, 0.8), 
+                    0 0 20px rgba(83, 0, 0, 0.5);
             }
         }
 
@@ -54,22 +54,27 @@
             75% { transform: translate(1px, 2px) rotate(-1deg); background-color: #ff3300; }
             100% { transform: translate(1px, -1px) rotate(0deg); background-color: #ff0000; }
         }
+        ::-webkit-textfield-decoration-container{
+            display: block;
+            hyphenate-character: fun;
+            height: inherit;visibility: hidden;
+        }
 
         /* 3. Active/Long-Press Detonation (Extra Challenge) */
         @keyframes doomsday-detonate {
             /* Warning Phase (0s to 3s) */
             0% { 
                 transform: scale(1) translateY(0); 
-                background: radial-gradient(circle at 70% 30%, #ff6666, #ff0000); 
+                background: radial-gradient(circle at 70% 30%, #72d3a1, #ff017c); 
             }
             75% { 
                 transform: scale(0.95) translateY(5px); /* Button depression */
-                background: radial-gradient(circle at 50% 50%, #ff0000, #aa0000); 
+                background: radial-gradient(circle at 50% 50%, #254302, #00ff84); 
             }
             /* Detonation Phase (3s to 4s) */
             100% { 
                 transform: scale(100) translate(0, 0); /* Button disappears/explodes */
-                background: black; 
+                background: rgb(8, 79, 192); 
                 opacity: 0; 
             }
         }
@@ -79,7 +84,7 @@
             0% { 
                 transform: scale(1); 
                 opacity: 1; 
-                background-color: rgba(255, 0, 0, 0.8);
+                background-color: rgba(157, 0, 255, 0.8);
             }
             75% { 
                 transform: scale(1); 
@@ -113,6 +118,7 @@
             /* 1. Initial Warning Animation */
             animation: doomsday-pulse 2s infinite alternate;
             z-index: 10;
+            hanging-punctuation: unset;
         }
 
         /* The metallic casing (::before) */
@@ -186,9 +192,9 @@
         /* Active Casing (::before) */
         .doomsday:active::before {
             content: "LAUNCH SEQUENCE CONFIRMED";
-            color: #00ff00; /* Green confirmation light */
-            border-color: #000;
-            background-color: #000;
+            color: #124012; /* Green confirmation light */
+            border-color: #e30e0e;
+            background-color: #0b6ae6;
         }
 
         /* Active Explosion Wave (::after) - Triggers the dramatic explosion simulation */
@@ -198,7 +204,7 @@
             transform: translate(-50%, -50%) scale(1);
         }
 
-        .instructions-panel {
+        .instructions-panel { 
             max-width: 400px;
             padding: 1.5rem;
             background-color: #333;
@@ -235,3 +241,4 @@
     </div>
 </body>
 </html>
+<b><Keygen></Keygen></b>
