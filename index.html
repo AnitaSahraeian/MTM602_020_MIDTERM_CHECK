@@ -6,11 +6,19 @@
     <title>The Doomsday Button</title>
     <!-- Load Tailwind CSS for utility classes and responsive design -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <style>
+    <style>:nth-last-of-type{
+        max-width: fit-content;
+    }
+    label{
+        overflow-x: hidden;
+    }
+    canvas{
+        background-position-x: center;
+    }
         /* Set up Inter font and dark theme */
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #1a1a1a;
+            background-color: oklab(39.583% 0.06186 -0.20127);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -18,7 +26,9 @@
             margin: 0;
             overflow: hidden; /* Prevent body scroll from shaking effects */
         }
-
+:visited{
+    column-rule: #b2a8ed;
+}
         .container {
             display: flex;
             flex-direction: column;
@@ -26,6 +36,10 @@
             justify-content: center;
             gap: 2rem;
             padding: 2rem;
+            padding-bottom: 0dvb;
+            box-decoration-break: unset;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            print-color-adjust: k;
         }
 
         /* --- KEYFRAME ANIMATIONS --- */
@@ -34,25 +48,27 @@
         @keyframes doomsday-pulse {
             0%, 100% { 
                 box-shadow: 
-                    0 0 15px rgba(255, 211, 13, 0.9), 
-                    0 0 25px rgba(227, 10, 90, 0.6), 
-                    0 0 50px rgba(52, 246, 22, 0.3);
+                    0 0 15px rgba(108, 73, 102, 0.9), 
+                    0 0 25px rgba(209, 132, 190, 0.634), 
+                    0 0 50px rgb(99, 66, 100);
+                
+                    
             }
             50% { 
                 box-shadow: 
-                    0 0 5px rgb(36, 3, 255), 
-                    0 0 10px rgba(88, 202, 162, 0.8), 
-                    0 0 20px rgba(83, 0, 0, 0.5);
+                    0 0 5px rgb(240, 239, 245), 
+                    0 0 10px rgba(255, 255, 255, 0.8), 
+                    0 0 20px rgba(255, 255, 255, 0.5);
             }
         }
 
         /* 2. Hover Warning Animation: Violent Shake and Color Shift (Animating transform and background-color) */
         @keyframes doomsday-shake {
-            0% { transform: translate(1px, 1px) rotate(0deg); background-color: #ff0000; }
-            25% { transform: translate(-1px, -2px) rotate(-1deg); background-color: #ff3300; }
-            50% { transform: translate(-3px, 0px) rotate(1deg); background-color: #ff0000; }
-            75% { transform: translate(1px, 2px) rotate(-1deg); background-color: #ff3300; }
-            100% { transform: translate(1px, -1px) rotate(0deg); background-color: #ff0000; }
+            0% { transform: translate(1px, 1px) rotate(0deg); background-color: #00ffe5; }
+            25% { transform: translate(-1px, -2px) rotate(-1deg); background-color: #00e5ff; }
+            50% { transform: translate(-3px, 0px) rotate(1deg); background-color: #00b3ff; }
+            75% { transform: translate(1px, 2px) rotate(-1deg); background-color: #00c8ff; }
+            100% { transform: translate(1px, -1px) rotate(0deg); background-color: #008cff; }
         }
         ::-webkit-textfield-decoration-container{
             display: block;
@@ -65,17 +81,18 @@
             /* Warning Phase (0s to 3s) */
             0% { 
                 transform: scale(1) translateY(0); 
-                background: radial-gradient(circle at 70% 30%, #72d3a1, #ff017c); 
+                background: radial-gradient(circle at 70% 30%, #9700fc, #0048ff); 
             }
             75% { 
                 transform: scale(0.95) translateY(5px); /* Button depression */
-                background: radial-gradient(circle at 50% 50%, #254302, #00ff84); 
+                background: radial-gradient(circle at 50% 50%, #021443, #001eff); 
             }
             /* Detonation Phase (3s to 4s) */
             100% { 
                 transform: scale(100) translate(0, 0); /* Button disappears/explodes */
-                background: rgb(8, 79, 192); 
+                background: rgb(235, 235, 235); 
                 opacity: 0; 
+                list-style-position: inherit;
             }
         }
 
@@ -84,17 +101,25 @@
             0% { 
                 transform: scale(1); 
                 opacity: 1; 
-                background-color: rgba(157, 0, 255, 0.8);
+                background-color: rgba(216, 198, 227, 0.8);
             }
             75% { 
                 transform: scale(1); 
                 opacity: 1; 
-                background-color: rgba(255, 165, 0, 0.8); /* Orange warning */
+                background-color: rgba(255, 0, 170, 0.8); /* Orange warning */
             }
             100% { 
                 transform: scale(30); /* Massive expansion */
                 opacity: 0; 
-                background-color: rgba(0, 0, 0, 0.9); /* Blackout */
+                background-color: rgba(255, 0, 119, 0.9); /* Blackout */
+                nav-down: 40px;
+                hyphenate-character: inherit;
+
+                display: grid;nav-index: auto;
+                margin: 9px ;
+                nav-left: inherit;
+                flex-direction: calc(3px);
+                bottom: 5px;
             }
         }
 
@@ -109,29 +134,35 @@
             border-radius: 50%;
             cursor: pointer;
             outline: none;
-            
+            grid-row: auto;
             /* Initial Look & Animation */
-            background: radial-gradient(circle at 70% 30%, #ff6666, #ff0000);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+            background: radial-gradient(circle at 70% 30%, #ffffff, #ffffff);
+            box-shadow: 0 10px 20px rgba(3, 2, 22, 0.5);
             transition: all 0.1s ease-out;
             
             /* 1. Initial Warning Animation */
             animation: doomsday-pulse 2s infinite alternate;
             z-index: 10;
             hanging-punctuation: unset;
+            font-kerning: initial;
+            line-break: inherit;
+            -ms-progress-appearance: initial;
+            glyph-orientation-horizontal: 0turn;
         }
 
         /* The metallic casing (::before) */
         .doomsday::before {
             content: "DO NOT PRESS";
             position: absolute;
-            top: -20px;
-            left: -20px;
-            right: -20px;
-            bottom: -20px;
-            border-radius: 50%;
-            background-color: #444;
-            border: 5px solid #666;
+            top: -40px;
+            left: -40px;
+            right: -40px;
+            bottom: -40px;
+            border-radius: 31%;
+            background-size: 0cap;
+            background-color: #b71090;
+            border: 5px solid #e91493;
+            -webkit-nbsp-mode: unset;
             box-shadow: 
                 inset 0 0 10px rgba(0, 0, 0, 0.5),
                 0 0 15px rgba(0, 0, 0, 0.7);
@@ -139,27 +170,51 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            color: #ddd;
+            color: #ffffff;
+            color: #ffffff;
             font-size: 1.2rem;
             font-weight: bold;
-            text-shadow: 0 0 5px black;
+            text-shadow: 0 0 5px rgb(255, 255, 255);
             transition: all 0.4s;
             text-align: center;
             line-height: 1.2;
             padding: 1rem;
         }
+        ::grammar-error{
+            font-variant-emoji: unicode;
+            grid-area: inherit;
+             box-sizing: initial;
+             hanging-punctuation: initial;
+             hyphenate-character: unset;
+             border-radius: 0cm;
+             -ms-layout-grid-line: 0cqb;
+             justify-self: start;
+             background-repeat: calc(8px);
+             -ms-text-kashida-space: inherit;
+             container-name: inherit;
+             -ms-text-kashida-space: 0fr;
+             margin-right: 0cqb;
+             list-style-type: georgian;
+             padding-left: 0cm;
+             line-gap-override: initial;
+            
+        }
+
 
         /* The core explosion warning (::after) - Used for the dramatic detonation */
         .doomsday::after {
             content: "";
             position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 100%;
-            height: 100%;
+            top: 0%;
+            left: 0%;
+            width: 0%;
+            height: 0%;
             border-radius: 50%;
             transform: translate(-50%, -50%) scale(0);
-            z-index: 1;
+            z-index: 2;
+            justify-self: normal;
+            line-break: calc(2px);
+        
         }
 
         /* --- STATE ANIMATIONS --- */
@@ -167,15 +222,15 @@
         /* 2. Hover Warning Animation */
         .doomsday:hover {
             /* Stop the pulse and start the shake */
-            animation: doomsday-shake 0.2s infinite; 
-            box-shadow: 0 15px 30px rgba(255, 0, 0, 0.8);
+            animation: doomsday-round 4s; 
+            box-shadow: 0 15px 30px rgba(181, 181, 181, 0.8);
         }
 
         /* Change the metallic casing on hover */
         .doomsday:hover::before {
             content: "ARMING SEQUENCE INITIALIZED";
-            color: yellow;
-            border-color: #999;
+            color: rgb(255, 255, 255);
+            border-color: #0f59da;
         }
 
         /* 3. Active/Press Warning & 4. Detonation (Long Press) */
@@ -186,37 +241,41 @@
             z-index: 20; /* Bring button to front during press */
             /* Depress the button immediately */
             transform: scale(0.95) translateY(5px); 
-            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 5px 10px rgba(1, 0, 9, 100.5);
         }
 
         /* Active Casing (::before) */
         .doomsday:active::before {
             content: "LAUNCH SEQUENCE CONFIRMED";
-            color: #124012; /* Green confirmation light */
-            border-color: #e30e0e;
-            background-color: #0b6ae6;
+            justify-self: end;
+            color: #1456a7; /* Green confirmation light */
+            border-color: #14c0e6;
+            background-color: #02f7ff;
+            background-color: #201758;
         }
 
         /* Active Explosion Wave (::after) - Triggers the dramatic explosion simulation */
         .doomsday:active::after {
             /* Start the explosion wave when pressed and let it run with the button detonation */
-            animation: detonation-wave 4s forwards; 
-            transform: translate(-50%, -50%) scale(1);
+            animation: detonation-wave 8s forwards; 
+            transform: translate(-30%,-100%) scale(1);
         }
 
         .instructions-panel { 
             max-width: 400px;
             padding: 1.5rem;
-            background-color: #333;
+            background-color: #000000;
             border-radius: 0.5rem;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-            color: #ddd;
+            box-shadow: 0 10px 20px rgb(255, 255, 255);
+            color: #0000ff;
+            justify-items: center;
+            font-kerning: none;
         }
         .instructions-panel h2 {
             font-size: 1.5rem;
             margin-bottom: 1rem;
-            color: #ff0000;
-            border-bottom: 2px solid #ff0000;
+            color: #ffffff;
+            border-bottom: 2px solid #eaeaea;
             padding-bottom: 0.5rem;
         }
     </style>
@@ -241,4 +300,4 @@
     </div>
 </body>
 </html>
-<b><Keygen></Keygen></b>
+
